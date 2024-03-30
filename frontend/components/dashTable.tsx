@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import {
     Table,
@@ -9,11 +10,29 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+// import { Button } from "@/components/ui/button"
 import data from '@/data/data'
-
+import toast, { Toaster } from 'react-hot-toast';
 const DashTable = () => {
+    const handleAdd = () => {
+        toast.success('Employee added successfully', {
+            duration: 3000,
+            position: "top-right",
+            icon: '👏'
+        });
+    }
     return (
         <div className='container'>
+            <Toaster />
+            <div
+                className='flex justify-end p-4'
+            >
+                {/* add employee button at end */}
+                <button
+                    className='bg-white text-black py-3 px-4 rounded-md font-medium text-base'
+                    onClick={handleAdd}
+                >Add Employee</button>
+            </div>
             <Table>
                 <TableCaption>
                     <h3 className="text-base font-semibold text-white">Employees Info
