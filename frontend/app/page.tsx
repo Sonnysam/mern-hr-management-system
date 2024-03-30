@@ -3,8 +3,7 @@ import Welcome from "@/components/welcome";
 
 export default function Home() {
   return (
-    <main className="first-letter:">
-      <Nav />
+    <main className="bg-slate-800">
       <Welcome />
     </main>
   );
