@@ -5,7 +5,7 @@ import Link from "next/link";
 const logo = require("../public/logo.png");
 const Nav = () => {
     return (
-        <div className="relative font-mono ">
+        <div className="relative font-mono">
             <nav className="flex justify-between items-center w-full px-4 sm:px-8">
                 <Link href="/">
                     <Image src={logo} alt="logo" width={100} height={100} />
