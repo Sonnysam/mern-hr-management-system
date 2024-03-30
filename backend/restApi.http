@@ -4,7 +4,7 @@ Content-Type: application/json
 Connection: keep-alive
 
 {
-    "name": "John Doe",
+   "name": "John Doe",
    "email": "john@doe.com",
    "position": "Manager",
    "department": "Sales",
