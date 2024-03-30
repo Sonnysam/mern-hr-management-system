@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import toast, { Toaster } from 'react-hot-toast';
+import "../../styles/style.css";
 
 const logo = require("../../public/logo.png");
 const Login = () => {
@@ -40,7 +41,7 @@ const Login = () => {
     }
 
     return (
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
+        <div className=" dashboard flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
             <Toaster />
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <div className="my-2 flex justify-center">
@@ -48,7 +49,7 @@ const Login = () => {
                         <Image src={logo} alt="logo" width={100} height={100} />
                     </Link>
                 </div>
-                <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-black">
+                <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-white">
                     Sign in to your HR <span className='text-blue-600'>Portal</span>
                 </h2>
             </div>
@@ -58,7 +59,7 @@ const Login = () => {
                     <div>
                         <label
                             htmlFor="email"
-                            className="block text-sm font-medium leading-6 text-black"
+                            className="block text-sm font-medium leading-6 text-white"
                         >
                             Email address
                         </label>
@@ -81,7 +82,7 @@ const Login = () => {
                         <div className="flex items-center justify-between">
                             <label
                                 htmlFor="password"
-                                className="block text-sm font-medium leading-6 text-black"
+                                className="block text-sm font-medium leading-6 text-white"
                             >
                                 Password
                             </label>
@@ -120,7 +121,7 @@ const Login = () => {
                     </div>
                 </form>
 
-                <p className="mt-5 text-center text-sm text-black">
+                <p className="mt-5 text-center text-sm text-white">
                     Go back{" "}
                     <a
                         href="/"
