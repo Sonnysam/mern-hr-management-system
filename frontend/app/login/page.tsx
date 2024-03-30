@@ -2,22 +2,47 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import toast, { Toaster } from 'react-hot-toast';
+import "../../styles/style.css";
 
 const logo = require("../../public/logo.png");
 const Login = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<any>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleSignin = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
         if (!email || !password) {
-            return;
+            toast.error('Please enter your email and password', {
+                duration: 3000,
+                position: "top-right",
+                icon: '🔐'
+            });
+        }
+        if (email === "admin@gmail.com" && password === "admin") {
+            toast.success('Login successful', {
+                duration: 1000,
+                position: "top-right",
+                icon: '🔓'
+            });
+            setLoading(true);
+            setTimeout(() => {
+                window.location.href = "/dashboard";
+            }, 2000);
+        } else {
+            toast.error('Invalid email or password', {
+                duration: 3000,
+                position: "top-right",
+                icon: '🔐'
+            });
         }
     }
 
     return (
-        <div className="flex min-h-full bg-slate-800  flex-1 flex-col justify-center px-6 lg:px-8">
+        <div className=" dashboard flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
+            <Toaster />
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <div className="my-2 flex justify-center">
                     <Link href="/">
@@ -48,7 +73,7 @@ const Login = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 autoComplete="email"
                                 required
-                                className="block w-full rounded-md border-0 py-2 px-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-3 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                             />
                         </div>
                     </div>
@@ -80,7 +105,7 @@ const Login = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 autoComplete="current-password"
                                 required
-                                className="block w-full rounded-md border-0 py-2 px-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-3 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                             />
                         </div>
                     </div>
@@ -89,9 +114,9 @@ const Login = () => {
                         <button
                             onClick={handleSignin}
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                            className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                         >
-                            Sign in
+                            {loading ? "Loading..." : "Sign in"}
                         </button>
                     </div>
                 </form>
