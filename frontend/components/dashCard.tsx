@@ -1,7 +1,36 @@
-import data from '@/data/data'
+"use client";
 import React from 'react'
+import toast, { Toaster } from 'react-hot-toast';
+import { JSX } from 'react/jsx-runtime';
 
 const DashCard = () => {
+    const [data,setDatas] = React.useState([])
+    React.useEffect(()=>{
+        fetch('http://127.0.0.1:4040/api/employees/read/all',{
+            method: 'GET',
+            headers:{
+                "Content-Type": "application/json;charset=utf-8",
+                "Connection": "keep-alive"
+            }
+        }).then((res) => res.json())
+        .then(response => {
+            if(response.success){
+                toast.success(response.message, {
+                    duration: 3000,
+                    position: "top-right",
+                    icon: '👏'
+                })
+                setDatas(response.employees)
+                console.log(data)
+            }else{
+                toast.error(response.message, {
+                    duration: 3000,
+                    position: "top-right",
+                    icon: '👏'
+                })
+            }
+        })
+    },[])
     return (
         <div>
             {/* three cards displaying number of employees, number of departments, new applicants. Let it be responsive*/}

@@ -11,13 +11,14 @@ import {
     TableRow,
 } from "@/components/ui/table"
 // import { Button } from "@/components/ui/button"
-import data from '@/data/data'
+// import data from '@/data/data'
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
 
 
 const DashTable = () => {
+    const [data,setDatas] = React.useState([])
     const handleAdd = () => {
         toast.success('Employee added successfully', {
             duration: 3000,
@@ -39,6 +40,33 @@ const DashTable = () => {
             icon: '👏'
         });
     }
+
+    React.useEffect(()=>{
+        fetch('http://127.0.0.1:4040/api/employees/read/all',{
+            method: 'GET',
+            headers:{
+                "Content-Type": "application/json;charset=utf-8",
+                "Connection": "keep-alive"
+            }
+        }).then((res) => res.json())
+        .then(response => {
+            if(response.success){
+                toast.success(response.message, {
+                    duration: 3000,
+                    position: "top-right",
+                    icon: '👏'
+                })
+                setDatas(response.employees)
+                console.log(data)
+            }else{
+                toast.error(response.message, {
+                    duration: 3000,
+                    position: "top-right",
+                    icon: '👏'
+                })
+            }
+        })
+    },[])
     return (
         <div className='container'>
             <Toaster />

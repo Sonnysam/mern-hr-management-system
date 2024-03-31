@@ -34,7 +34,7 @@ export const Read = async (req: Request, res: Response) => {
   try {
     const employees: Employee[] | null = await employeeModel.find();
     if (employees.length === 0) {
-      console.log("Employee record empty");
+      console.log("Employees record empty");
       return res.status(200).json({
         success: false,
         message: "Employees record is empty",
