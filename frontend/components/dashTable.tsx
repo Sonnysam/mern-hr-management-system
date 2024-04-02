@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Table,
     TableBody,
@@ -16,6 +16,8 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { toUSVString } from "util";
 import { url } from "inspector";
+import { Modal } from "react-responsive-modal";
+import AddEmployee from "./Add";
 
 const DashTable = () => {
     // state for name, email, position, department, startdate
@@ -25,13 +27,13 @@ const DashTable = () => {
     const [department, setDepartment] = React.useState("");
     const [startDate, setStartDate] = React.useState("");
     const [data, setDatas] = React.useState([]);
+    const [isAdding, setIsAdding] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
 
     const handleAdd = () => {
-        toast.success("Employee added successfully", {
-            duration: 3000,
-            position: "top-right",
-            icon: "👏",
-        });
+        //open a modal
+        //add employee
+        //close modal
     };
     const handleEdit = () => {
         toast.success("Employee edited successfully", {
@@ -40,12 +42,31 @@ const DashTable = () => {
             icon: "👏",
         });
     };
-    const handleDelete = () => {
-        toast.success("Employee deleted successfully", {
-            duration: 3000,
-            position: "top-right",
-            icon: "👏",
-        });
+
+    const handleDelete = (_id: any) => {
+        // const url = "http://127.0.0.1:3000/api/employees/delete/660766badcffc62c54be1d10"
+        const url = `http://127.0.0.1:3000/api/employees/delete/${_id}`;
+        axios
+            .delete(url)
+            .then((response) => {
+                console.log(response.data);
+                if (response.data.success) {
+                    toast.success(response.data.message, {
+                        duration: 3000,
+                        position: "top-right",
+                        icon: "👏",
+                    });
+                } else {
+                    toast.error(response.data.message, {
+                        duration: 3000,
+                        position: "top-right",
+                        icon: "👏",
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
     const handleLogout = () => {
         toast.success("Logged out successfully", {
@@ -55,41 +76,38 @@ const DashTable = () => {
         });
     };
 
-    const url = "http://127.0.0.1:4040/api/employees/read/all"
+    const url = "http://127.0.0.1:4040/api/employees/read/all";
     React.useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(url, {
                     headers: {
                         "Content-Type": "application/json;charset=utf-8",
-                        "Connection": "keep-alive"
-                    }
+                        Connection: "keep-alive",
+                    },
                 });
 
                 if (response.data.success) {
                     toast.success(response.data.message, {
                         duration: 3000,
                         position: "top-right",
-                        icon: '👏'
-                    })
+                        icon: "👏",
+                    });
                     setDatas(response.data.employees);
                 } else {
                     toast.error(response.data.message, {
                         duration: 3000,
                         position: "top-right",
-                        icon: '👏'
-                    })
+                        icon: "👏",
+                    });
                 }
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error("Error fetching data:", error);
             }
         };
 
         fetchData();
     }, []);
-
-
-
 
     return (
         <div className="container">
@@ -108,9 +126,9 @@ const DashTable = () => {
                 >
                     Add Employee
                 </button>
-
-
+                {/* {isAdding && <AddEmployee />} */}
             </div>
+
             <Table>
                 <TableCaption>
                     <h3 className="text-base font-semibold text-white">
@@ -166,18 +184,17 @@ const DashTable = () => {
                                     Edit
                                 </button>
                                 <button
-                                    onClick={handleDelete}
+                                    onClick={() => handleDelete(employee._id)}
                                     className="bg-red-500 text-white px-2 py-1 rounded-md ml-2"
                                 >
                                     Delete
                                 </button>
                             </TableCell>
                         </TableRow>
-
                     ))}
                 </TableBody>
             </Table>
-        </div >
+        </div>
     );
 };
 
