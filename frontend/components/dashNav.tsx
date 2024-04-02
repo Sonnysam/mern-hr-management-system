@@ -13,7 +13,6 @@ const DashNav = () => {
                 <ul
                     className='flex items-center space-x-4'
                 >
-                    <li className='text-white text-sm font-bold p-1 cursor-pointer hover:text-blue-500'>logout</li>
                     <li className='text-white text-sm font-bold p-1'>admin@gmail.com</li>
                     <li>
                         <Image src={man} alt="logo" width={40} height={40} />

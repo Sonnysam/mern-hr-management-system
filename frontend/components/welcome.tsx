@@ -14,7 +14,7 @@ const Welcome = () => {
             <p
                 className='text-center mt-3 text-lg px-5 sm:px-0'
             >
-                <a href="/about" className='bg-white text-black py-3 px-4 rounded-md hover:text-black'>Learn More</a> {" "} <a href="/login" className='bg-black text-white py-3 px-4 rounded-md hover:text-white'>Get Started</a>
+                <a href="#" className='bg-white text-black py-3 px-4 rounded-md hover:text-black'>Learn More</a> {" "} <a href="/login" className='bg-black text-white py-3 px-4 rounded-md hover:text-white'>Get Started</a>
             </p>
         </div>
     )
